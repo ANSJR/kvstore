@@ -38,9 +38,9 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_executable(kv_tests tests/store_test.cpp)
-target_link_libraries(kv_tests PRIVATE kvcore GTest::gtest_main)
-target_compile_options(kv_tests PRIVATE -Wall -Wextra -Wpedantic)
+add_executable(kvTests tests/StoreTest.cpp)
+target_link_libraries(kvTests PRIVATE kvcore GTest::gtest_main)
+target_compile_options(kvTests PRIVATE -Wall -Wextra -Wpedantic)
 
 include(GoogleTest)
-gtest_discover_tests(kv_tests)
+gtest_discover_tests(kvTests)

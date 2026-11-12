@@ -22,10 +22,10 @@ public:
 
     void remove(Node* n);
     // Returns the earliest expiration and removes it
-    Node* pop_min();
+    Node* popMin();
 
     // Soonest deadline
-    TimePoint min_deadline() const;
+    TimePoint minDeadline() const;
     // Returns true if empty
     bool empty() const;
     // Returns number of expiring keys
@@ -35,18 +35,18 @@ public:
     void clear();
 
     // For debugging if heap and hash table disagree
-    bool check_invariants() const;
+    bool checkInvariants() const;
 
 private:
     struct HeapNode {
-        TimePoint at;  // cached copy of *node->second.expires_at
+        TimePoint at;  // cached copy of *node->second.expiresAt
         Node* node;  // Pointer to an entry in entryIndex 
     };
     // The point where any value is placed in HeapNode
     void place(std::size_t i, HeapNode s);
 
-    void sift_up(std::size_t i);
-    void sift_down(std::size_t i);
+    void siftUp(std::size_t i);
+    void siftDown(std::size_t i);
 
     static std::size_t parent(std::size_t i) { return (i - 1) / 2; }
     static std::size_t left(std::size_t i)   { return 2 * i + 1; }

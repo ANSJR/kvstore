@@ -2,7 +2,7 @@
 
 namespace kv {
 
-void Store::set(std::string key, std::string value, std::optional<TimePoint> expires_at) {
+void Store::set(std::string key, std::string value, std::optional<TimePoint> expiresAt) {
 
 }
 
@@ -22,7 +22,7 @@ std::optional<std::string> Store::get(const std::string& key) const {
     return std::nullopt;
 }
 
-std::optional<TimePoint> Store::next_expiry() const {
+std::optional<TimePoint> Store::nextExpiry() const {
     return std::nullopt;
 }
 
@@ -30,7 +30,7 @@ std::size_t Store::size() const {
     return entryIndex.size();
 }
 
-bool Store::is_expired(const Entry& e, TimePoint now) {
+bool Store::isExpired(const Entry& e, TimePoint now) {
     return false;
 }
 

@@ -20,7 +20,7 @@ public:
     Store& operator=(const Store&) = delete;
 
     // Stores key into the hash table
-    void set(std::string key, std::string value, std::optional<TimePoint> expires_at = std::nullopt);
+    void set(std::string key, std::string value, std::optional<TimePoint> expiresAt = std::nullopt);
     // Deletes key into the hash table
     bool del(const std::string& key);
 
@@ -34,16 +34,16 @@ public:
     std::optional<std::string> get(const std::string& key) const;
 
     // Holds the next earliest expiration with "nullopt" empty
-    std::optional<TimePoint> next_expiry() const;
+    std::optional<TimePoint> nextExpiry() const;
 
     // Raw entry count — may briefly include keys past their deadline 
     std::size_t size() const;
 
 private:
     // checks if (entry.expiration <= now)
-    static bool is_expired(const Entry& e, TimePoint now);
+    static bool isExpired(const Entry& e, TimePoint now);
 
-    mutable std::shared_mutex mutex_;  // guards map_ AND heap_ as one unit
+    mutable std::shared_mutex mutex;  // guards entryIndex AND expiryIndex as one unit
     std::unordered_map<std::string, Entry> entryIndex;
     ExpiryHeap expiryIndex;
 };
