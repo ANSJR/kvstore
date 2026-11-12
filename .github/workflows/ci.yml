@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: debug
+            tsan: OFF
+          - name: tsan
+            tsan: ON
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fix TSan on newer kernels
+        if: matrix.tsan == 'ON'
+        run: sudo sysctl vm.mmap_rnd_bits=28
+
+      - name: Configure
+        run: cmake -B build -DKV_TSAN=${{ matrix.tsan }}
+
+      - name: Build
+        run: cmake --build build --parallel
+
+      - name: Test
+        run: ctest --test-dir build --output-on-failure
