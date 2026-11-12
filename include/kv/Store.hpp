@@ -22,7 +22,7 @@ public:
     // Stores key into the hash table
     void set(std::string key, std::string value, std::optional<TimePoint> expiresAt = std::nullopt);
     // Deletes key into the hash table
-    bool del(const std::string& key);
+    bool del(const std::string& key, TimePoint now = Clock::now());
 
     // Removes expired keys from heap
     std::size_t sweep(TimePoint now = Clock::now());
@@ -31,7 +31,7 @@ public:
     void clear();
 
     // Looks up key giving value or "nullopt" representing no value
-    std::optional<std::string> get(const std::string& key) const;
+    std::optional<std::string> get(const std::string& key, TimePoint now = Clock::now()) const;
 
     // Holds the next earliest expiration with "nullopt" empty
     std::optional<TimePoint> nextExpiry() const;
@@ -43,7 +43,7 @@ private:
     // checks if (entry.expiration <= now)
     static bool isExpired(const Entry& e, TimePoint now);
 
-    mutable std::shared_mutex mutex;  // guards entryIndex AND expiryIndex as one unit
+    mutable std::shared_mutex storeMutex;  // guards entryIndex AND expiryIndex as one unit
     std::unordered_map<std::string, Entry> entryIndex;
     ExpiryHeap expiryIndex;
 };
