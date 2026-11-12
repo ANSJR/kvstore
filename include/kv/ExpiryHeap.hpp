@@ -27,9 +27,9 @@ public:
     // Soonest deadline
     TimePoint min_deadline() const;
     // Returns true if empty
-    bool empty() const { return expiryHeap.empty(); }
+    bool empty() const;
     // Returns number of expiring keys
-    std::size_t size() const { return expiryHeap.size(); }
+    std::size_t size() const;
 
     // Removes everything
     void clear();

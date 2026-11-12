@@ -17,9 +17,9 @@ inline constexpr std::size_t kNoSlot = SIZE_MAX;
 struct Entry {
     std::string value;
     // nullopt = lives forever
-    std::optional<TimePoint> expires_at;
+    std::optional<TimePoint> expiresAt;
     // Heap number with kNoSlot being a never expiring entry
-    std::size_t heap_slot = kNoSlot;
+    std::size_t heapSlot = kNoSlot;
 };
 
 }  // namespace kv
